@@ -44,7 +44,7 @@ void Catalan::set_n(int n) {
 }
 
 void Catalan::print() {
-    cout << "n: " << get_n_forThisCatalan() << " Catalan Number: " << get_catalanNumber() << endl;
+    cout << "n: " << get_n_forThisCatalan() << "\nCatalan Number: " << get_catalanNumber() << endl;
 
 }
 
