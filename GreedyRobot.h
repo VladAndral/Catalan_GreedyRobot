@@ -27,6 +27,7 @@ class GreedyRobot {
         void set_startingY(int num);
         void set_treasureX(int num);
         void set_treasureY(int num);
+        void build();
 
         // RECURSIVE METHODS
         void find_shortestPaths();

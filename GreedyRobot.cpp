@@ -14,6 +14,10 @@ GreedyRobot::GreedyRobot(int max_movementDistance, int startingX, int startingY,
     _startingCoordinates{startingX, startingY},
     _treasureCoordinates{treasureX, treasureY}
 {
+	build();
+}
+
+void GreedyRobot::build() {
 	_path_X_length = abs(_treasureCoordinates[0] - _startingCoordinates[0]);
 	_path_Y_length = abs(_treasureCoordinates[1] - _startingCoordinates[1]);
 	_path_length =  _path_X_length + _path_Y_length;
@@ -42,7 +46,7 @@ GreedyRobot::GreedyRobot(int max_movementDistance, int startingX, int startingY,
 }
 
 ostream& operator<<(ostream& stream, const GreedyRobot& greedyRobot) {
-	stream << "Starting X: " << greedyRobot.startingX()
+	stream << "\nStarting X: " << greedyRobot.startingX()
 			<< "\nStarting Y: " << greedyRobot.startingY()
 			<< "\nTreasure X: " << greedyRobot.treasureX()
 			<< "\nTreasure Y: " << greedyRobot.treasureY()
@@ -59,8 +63,9 @@ istream& operator>>(istream& stream, GreedyRobot& greedyRobot) {
 	greedyRobot.set_max_movementDistance(maximum_distance);
 	greedyRobot.set_startingX(startingX);
 	greedyRobot.set_startingY(startingY);
+	greedyRobot.set_treasureX(treasureX);
 	greedyRobot.set_treasureY(treasureY);
-	greedyRobot.set_treasureY(treasureY);
+	greedyRobot.build();
 	greedyRobot.find_shortestPaths();
 
 	return stream;

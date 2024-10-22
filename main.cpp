@@ -9,20 +9,20 @@ using namespace std;
  void CatalanTests();
 
 int main() {
-    CatalanTests();
-    tests_GreedyRobot();
+    // CatalanTests();
+    // tests_GreedyRobot();
 
     // GreedyRobot testRobot(1, 1, 1, 2, 2);
 
 
 
-    // GreedyRobot testRobot;
-    // cout << "Enter your path and restraint [max, x1, y1, x2, y2]" << endl;
-    // cin >> testRobot; //TODO
-    // cout << testRobot.treasureX() << endl;
+    GreedyRobot testRobot;
+    cout << "Enter your path and restraint [max, x1, y1, x2, y2]" << endl;
+    cin >> testRobot; //TODO
+    cout << testRobot.treasureX() << endl;
     // testRobot.find_shortestPaths();
     
-    // cout << testRobot << endl;
+    cout << testRobot << endl;
 
 
 }
