@@ -7,9 +7,11 @@ using namespace std;
 class GreedyRobot {
 
     public:
+        // CONSTRUCTOR
         GreedyRobot();
         GreedyRobot(int max_movementDistance, int startingX, int startingY, int treasureX, int tresureY);
 
+        // GETS AND SETS
         int max_movementDistance() const;
         int numberOfPaths() const;
         int path_length() const;
@@ -18,6 +20,7 @@ class GreedyRobot {
         int treasureX() const;
         int treasureY() const;
         void print_shortestPaths() const;
+        vector<string> list_of_shortestPaths() const;
         bool shortestPath_exists() const;
         void set_max_movementDistance(int num);
         void set_startingX(int num);
@@ -25,9 +28,10 @@ class GreedyRobot {
         void set_treasureX(int num);
         void set_treasureY(int num);
 
+        // RECURSIVE METHODS
         void find_shortestPaths();
-        void recursive_find_shortestPaths(array<int, 2> currentCoordinates, array<int, 2> moves, int forwardMoves, int diretionSwitch, char direction, string pathString); // bool whether can continue or not
 
+        // OPERATOR OVERLOADS
         friend ostream& operator<<(ostream& stream, const GreedyRobot& greedyRobot);
         friend istream& operator>>(istream& stream, GreedyRobot& greedyRobot);
 
@@ -45,6 +49,7 @@ class GreedyRobot {
 
         bool _isShortestPathPossible;
 
+        void recursive_find_shortestPaths(array<int, 2> currentCoordinates, array<int, 2> moves, int forwardMoves, int diretionSwitch, char direction, string pathString); // bool whether can continue or not
 
 };
 

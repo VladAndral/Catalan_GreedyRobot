@@ -19,6 +19,9 @@ GreedyRobot::GreedyRobot(int max_movementDistance, int startingX, int startingY,
 	_path_length =  _path_X_length + _path_Y_length;
 	_isShortestPathPossible = true;
 	
+	/*
+		'f' TELLS US THAT THERE IS NO CHANGE IN X/Y, E.G. (1, 2) -> (1, 9)
+	*/
 	if (this->treasureX() > this->startingX()) {
 		_directionsToGoIn[0] = 'E';
 	} else if (this->treasureX() > this->startingX()) {
@@ -35,9 +38,16 @@ GreedyRobot::GreedyRobot(int max_movementDistance, int startingX, int startingY,
 		_directionsToGoIn[1] = 'f';
 	}
 
+	find_shortestPaths();
 }
 
 ostream& operator<<(ostream& stream, const GreedyRobot& greedyRobot) {
+	stream << "Starting X: " << greedyRobot.startingX()
+			<< "\nStarting Y: " << greedyRobot.startingY()
+			<< "\nTreasure X: " << greedyRobot.treasureX()
+			<< "\nTreasure Y: " << greedyRobot.treasureY()
+			<< "\nShortest Path Length: " << greedyRobot.path_length()
+			<< "\nMax Forward Moves: " << greedyRobot.max_movementDistance();
 	greedyRobot.print_shortestPaths();
 	return stream;
 }
@@ -51,6 +61,7 @@ istream& operator>>(istream& stream, GreedyRobot& greedyRobot) {
 	greedyRobot.set_startingY(startingY);
 	greedyRobot.set_treasureY(treasureY);
 	greedyRobot.set_treasureY(treasureY);
+	greedyRobot.find_shortestPaths();
 
 	return stream;
 }
@@ -107,10 +118,15 @@ void GreedyRobot::set_treasureY(int num) {
 
 
 void GreedyRobot::print_shortestPaths() const {
+	cout << "\n" << endl;
 	for (string path : _list_of_shortestPaths) {
 		cout << path << endl;
 	}
 	cout << "Number of paths: " << _numberOfPaths << endl;
+}
+
+vector<string> GreedyRobot::list_of_shortestPaths() const {
+	return _list_of_shortestPaths;
 }
 
 bool GreedyRobot::shortestPath_exists() const {
@@ -119,6 +135,13 @@ bool GreedyRobot::shortestPath_exists() const {
 
 
 void GreedyRobot::find_shortestPaths() {
+
+	if (_startingCoordinates == _treasureCoordinates) {
+		_list_of_shortestPaths.push_back("Robot starts at treasure");
+		_numberOfPaths = 0;
+		return;
+	}
+
 	array<int, 2> moves = {0 , 0};
 	recursive_find_shortestPaths(_startingCoordinates, moves, 0, 0, _directionsToGoIn[0], "");
 	
@@ -151,9 +174,15 @@ void GreedyRobot::recursive_find_shortestPaths(array<int, 2> currentCoordinates,
 		}
 		_isShortestPathPossible = false;
 		return;
+	/*
+		AT TREASURE
+	*/
 	} else if ((currentCoordinates[0] == _treasureCoordinates[0]) && (currentCoordinates[1] == _treasureCoordinates[1])) { // if we are at the treasure
 		_list_of_shortestPaths.push_back(pathString);
 		return;
+	/*
+		MAXED OUT FORWARD MOVES
+	*/
 	} else if (forwardMoves == _max_movementDistance) { // if we've moved max amount of times in a direction or...
 	// } else if ((forwardMoves == _max_movementDistance)||((moves[0] == _path_X_length) || (moves[1] == _path_Y_length))) { // if we've moved max amount of times in a direction or...
 		if ((moves[0] > _path_X_length) || (moves[1] > _path_Y_length)) { // ... and if we have passed the max shortest x/y distane length
@@ -216,6 +245,9 @@ void GreedyRobot::recursive_find_shortestPaths(array<int, 2> currentCoordinates,
 					_isShortestPathPossible = false;
 			}
 		}
+	/*
+		AT BOUNDARY AND MOVING TOWARD PASSING IT, X AXIS
+	*/
 	// } else if ((currentCoordinates[0] == treasureX()) && ((direction == 'E')||(direction == 'W'))) { // If we have reached the limit of x movement
 	} else if ((moves[0] == _path_X_length) && ((direction == 'E')||(direction == 'W'))) { // If we have reached the limit of x movement
 		if (currentCoordinates[0] == treasureX()) {
@@ -234,6 +266,9 @@ void GreedyRobot::recursive_find_shortestPaths(array<int, 2> currentCoordinates,
 			pathString += direction;
 			recursive_find_shortestPaths(currentCoordinates, moves, forwardMoves, diretionSwitch, direction, pathString);
 		}
+	/*
+		AT BOUNDARY AND MOVING TOWARD PASSING IT, Y AXIS
+	*/
 	// } else if ((currentCoordinates[1] == treasureY()) && ((direction == 'N')||(direction == 'S'))) { // If we have reached the limit of y movement
 	} else if ((moves[1] == _path_Y_length) && ((direction == 'N')||(direction == 'S'))) { // If we have reached the limit of y movement
 		diretionSwitch++;
@@ -250,6 +285,9 @@ void GreedyRobot::recursive_find_shortestPaths(array<int, 2> currentCoordinates,
 		forwardMoves = 1;
 		pathString += direction;
 		recursive_find_shortestPaths(currentCoordinates, moves, forwardMoves, diretionSwitch, direction, pathString);
+	/*
+		IF NONE OF THE ABOVE, SEND ROBOT IN BOTH DIRECTIONS (X AND Y AXIS) TOWARD TREASURE
+	*/
 	} else {
 		if (direction == 'N') {
 			currentCoordinates[1]++;
@@ -258,6 +296,9 @@ void GreedyRobot::recursive_find_shortestPaths(array<int, 2> currentCoordinates,
 			pathString += direction;
 			recursive_find_shortestPaths(currentCoordinates, moves, forwardMoves, diretionSwitch, direction, pathString);
 			
+			/*
+				DON'T SEND A ROBOT IN THE OTHER DIRECTION IF MOVES ARE MAXED OUT IN THAT DIRECTION
+			*/
 			if (moves[0] != _path_X_length) {
 				pathString.pop_back(); // When recursing in another diretion, we need to remove the direction the other robot went in
 				currentCoordinates[1]--;
