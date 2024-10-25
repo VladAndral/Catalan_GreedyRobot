@@ -3,6 +3,11 @@
 
 using namespace std;
 
+/*
+	IDEA:
+	ONLY GO IN ONE DIRECTION, AND FOR EACH LIST ELEMENT, FLIP X-AXIS DIRECTION TO Y-AXIS DIRECTION
+*/
+
 GreedyRobot::GreedyRobot() :
     _max_movementDistance(0),
     _startingCoordinates{0, 0},
@@ -28,7 +33,7 @@ void GreedyRobot::build() {
 	*/
 	if (this->treasureX() > this->startingX()) {
 		_directionsToGoIn[0] = 'E';
-	} else if (this->treasureX() > this->startingX()) {
+	} else if (this->treasureX() < this->startingX()) {
 		_directionsToGoIn[0] = 'W';
 	} else {
 		_directionsToGoIn[0] = 'f';
@@ -36,7 +41,7 @@ void GreedyRobot::build() {
 
 	if (this->treasureY() > this->startingY()) {
 		_directionsToGoIn[1] = 'N';
-	} else if (this->treasureY() > this->startingY()) {
+	} else if (this->treasureY() < this->startingY()) {
 		_directionsToGoIn[1] = 'S';
 	} else {
 		_directionsToGoIn[1] = 'f';
@@ -46,13 +51,13 @@ void GreedyRobot::build() {
 }
 
 ostream& operator<<(ostream& stream, const GreedyRobot& greedyRobot) {
-	stream << "\nStarting X: " << greedyRobot.startingX()
-			<< "\nStarting Y: " << greedyRobot.startingY()
-			<< "\nTreasure X: " << greedyRobot.treasureX()
-			<< "\nTreasure Y: " << greedyRobot.treasureY()
-			<< "\nShortest Path Length: " << greedyRobot.path_length()
-			<< "\nMax Forward Moves: " << greedyRobot.max_movementDistance();
-	greedyRobot.print_shortestPaths();
+	// stream << "\nStarting X: " << greedyRobot.startingX()
+	// 		<< "\nStarting Y: " << greedyRobot.startingY()
+	// 		<< "\nTreasure X: " << greedyRobot.treasureX()
+	// 		<< "\nTreasure Y: " << greedyRobot.treasureY()
+	// 		<< "\nShortest Path Length: " << greedyRobot.path_length()
+	// 		<< "\nMax Forward Moves: " << greedyRobot.max_movementDistance();
+	greedyRobot.print_infoNoPaths();
 	return stream;
 }
 
@@ -66,7 +71,6 @@ istream& operator>>(istream& stream, GreedyRobot& greedyRobot) {
 	greedyRobot.set_treasureX(treasureX);
 	greedyRobot.set_treasureY(treasureY);
 	greedyRobot.build();
-	greedyRobot.find_shortestPaths();
 
 	return stream;
 }
@@ -122,12 +126,22 @@ void GreedyRobot::set_treasureY(int num) {
 }
 
 
-void GreedyRobot::print_shortestPaths() const {
+void GreedyRobot::print_listof_shortestPaths() const {
 	cout << "\n" << endl;
 	for (string path : _list_of_shortestPaths) {
 		cout << path << endl;
 	}
 	cout << "Number of paths: " << _numberOfPaths << endl;
+}
+
+void GreedyRobot::print_infoNoPaths() const {
+	cout << "\nStarting X: " << startingX()
+		<< "\nStarting Y: " << startingY()
+		<< "\nTreasure X: " << treasureX()
+		<< "\nTreasure Y: " << treasureY()
+		<< "\nShortest Path Length: " << path_length()
+		<< "\nMax Forward Moves: " << max_movementDistance();
+	cout << "\nNumber of paths: " << _numberOfPaths << endl;
 }
 
 vector<string> GreedyRobot::list_of_shortestPaths() const {
@@ -147,7 +161,7 @@ void GreedyRobot::find_shortestPaths() {
 		return;
 	}
 
-	array<int, 2> moves = {0 , 0};
+	array<int, 2> moves = {0, 0};
 	recursive_find_shortestPaths(_startingCoordinates, moves, 0, 0, _directionsToGoIn[0], "");
 	
 	if (!_list_of_shortestPaths.size()) {

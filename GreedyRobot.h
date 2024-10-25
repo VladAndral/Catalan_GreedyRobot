@@ -19,7 +19,8 @@ class GreedyRobot {
         int startingY() const;
         int treasureX() const;
         int treasureY() const;
-        void print_shortestPaths() const;
+        void print_listof_shortestPaths() const;
+        void print_infoNoPaths() const;
         vector<string> list_of_shortestPaths() const;
         bool shortestPath_exists() const;
         void set_max_movementDistance(int num);
