@@ -3,31 +3,8 @@
 
 using namespace std;
 
-// bool CheckValues(Catalan cn, int n, int catalanNumber) {
-//     return (
-//         (cn.get_n_forThisCatalan() == n) &&
-//         (cn.get_catalanNumber() == catalanNumber)
-//     );
-// }
-
-// Catalan c1;
-// Catalan c2(4);
-
-// bool testDefault(Catalan c) {
-//     return CheckValues(c, 0, 1);
-// }
-
-// bool testNormal1(Catalan c) {
-//     return CheckValues(c, 4, 14);
-// }
-
-// void testCatalan() {
-//     testDefault(c1);
-//     testNormal1(c2);
-// }
-
 void CatalanTests() {
-    cout << "CONSTRUCTION TEST" << endl;
+    cout << "CATALAN TEST" << endl;
     Catalan testCatalan(5);
     cout << "n: 5\nCatalan Number: 42 <- Expected" << endl;
     testCatalan.print();

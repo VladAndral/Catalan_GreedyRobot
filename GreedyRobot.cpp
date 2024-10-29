@@ -107,22 +107,27 @@ int GreedyRobot::treasureY() const {
 
 void GreedyRobot::set_max_movementDistance(int num) {
 	_max_movementDistance = num;
+	find_shortestPaths();
 }
 
 void GreedyRobot::set_startingX(int num) {
 	_startingCoordinates[0] = num;
+	find_shortestPaths();
 }
 
 void GreedyRobot::set_startingY(int num) {
 	_startingCoordinates[1] = num;
+	find_shortestPaths();
 }
 
 void GreedyRobot::set_treasureX(int num) {
 	_treasureCoordinates[0] = num;
+	find_shortestPaths();
 }
 
 void GreedyRobot::set_treasureY(int num) {
 	_treasureCoordinates[1] = num;
+	find_shortestPaths();
 }
 
 
@@ -260,7 +265,7 @@ void GreedyRobot::recursive_find_shortestPaths(array<int, 2> currentCoordinates,
 					pathString += direction;
 					recursive_find_shortestPaths(currentCoordinates, moves, forwardMoves, diretionSwitch, direction, pathString);
 					break;
-				default:
+				default: // If we've moved max amount of times in a direction and we can't switch directions (if direction == 'f')...
 					_isShortestPathPossible = false;
 			}
 		}
