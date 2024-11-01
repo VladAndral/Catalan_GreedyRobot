@@ -23,11 +23,11 @@ class GreedyRobot {
         void print_infoNoPaths() const;
         vector<string> list_of_shortestPaths() const;
         bool shortestPath_exists() const;
-        void set_max_movementDistance(int num);
-        void set_startingX(int num);
-        void set_startingY(int num);
-        void set_treasureX(int num);
-        void set_treasureY(int num);
+        void set_max_movementDistance(int num, bool init);
+        void set_startingX(int num, bool init);
+        void set_startingY(int num, bool init);
+        void set_treasureX(int num, bool init);
+        void set_treasureY(int num, bool init);
         void build();
 
         // RECURSIVE METHODS

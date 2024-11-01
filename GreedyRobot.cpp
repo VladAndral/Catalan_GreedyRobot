@@ -65,11 +65,11 @@ istream& operator>>(istream& stream, GreedyRobot& greedyRobot) {
 	int maximum_distance, startingX, startingY, treasureX, treasureY;
 	stream >> maximum_distance >> startingX >> startingY >> treasureX >> treasureY;
 	
-	greedyRobot.set_max_movementDistance(maximum_distance);
-	greedyRobot.set_startingX(startingX);
-	greedyRobot.set_startingY(startingY);
-	greedyRobot.set_treasureX(treasureX);
-	greedyRobot.set_treasureY(treasureY);
+	greedyRobot.set_max_movementDistance(maximum_distance, true);
+	greedyRobot.set_startingX(startingX, true);
+	greedyRobot.set_startingY(startingY, true);
+	greedyRobot.set_treasureX(treasureX, true);
+	greedyRobot.set_treasureY(treasureY, true);
 	greedyRobot.build();
 
 	return stream;
@@ -105,34 +105,43 @@ int GreedyRobot::treasureY() const {
     return _treasureCoordinates[1];
 }
 
-void GreedyRobot::set_max_movementDistance(int num) {
+void GreedyRobot::set_max_movementDistance(int num, bool init) {
 	_max_movementDistance = num;
-	find_shortestPaths();
+	if (!init) {
+		find_shortestPaths();
+	}
 }
 
-void GreedyRobot::set_startingX(int num) {
+void GreedyRobot::set_startingX(int num, bool init) {
 	_startingCoordinates[0] = num;
-	find_shortestPaths();
+	if (!init) {
+		find_shortestPaths();
+	}
 }
 
-void GreedyRobot::set_startingY(int num) {
+void GreedyRobot::set_startingY(int num, bool init) {
 	_startingCoordinates[1] = num;
-	find_shortestPaths();
+	if (!init) {
+		find_shortestPaths();
+	}
 }
 
-void GreedyRobot::set_treasureX(int num) {
+void GreedyRobot::set_treasureX(int num, bool init) {
 	_treasureCoordinates[0] = num;
-	find_shortestPaths();
+	if (!init) {
+		find_shortestPaths();
+	}
 }
 
-void GreedyRobot::set_treasureY(int num) {
+void GreedyRobot::set_treasureY(int num, bool init) {
 	_treasureCoordinates[1] = num;
-	find_shortestPaths();
+	if (!init) {
+		find_shortestPaths();
+	}
 }
 
 
 void GreedyRobot::print_listof_shortestPaths() const {
-	cout << "\n" << endl;
 	for (string path : _list_of_shortestPaths) {
 		cout << path << endl;
 	}
@@ -185,7 +194,7 @@ void GreedyRobot::find_shortestPaths() {
 	@param moves[2] The total moves of x and y [totalMoves_xDirection, totalMoves_yDirection]
 	@param directionSwitch Used to switch direction with %2 math
 	@param direction The current direction the robot is currently going in (N, E, S, W)
-	@param pathString The path of the robot as a string of N, E, S, W
+	@param pathString The path of the robot as a string combination of 'N', 'E', 'S', and/or 'W'
 */
 void GreedyRobot::recursive_find_shortestPaths(array<int, 2> currentCoordinates, array<int, 2> moves, int forwardMoves, int diretionSwitch, char direction, string pathString) { // bool whether can continue or not
 	bool foundPath;
@@ -270,7 +279,7 @@ void GreedyRobot::recursive_find_shortestPaths(array<int, 2> currentCoordinates,
 			}
 		}
 	/*
-		AT BOUNDARY AND MOVING TOWARD PASSING IT, X AXIS
+		AT BOUNDARY, X AXIS
 	*/
 	// } else if ((currentCoordinates[0] == treasureX()) && ((direction == 'E')||(direction == 'W'))) { // If we have reached the limit of x movement
 	} else if ((moves[0] == _path_X_length) && ((direction == 'E')||(direction == 'W'))) { // If we have reached the limit of x movement
@@ -291,7 +300,7 @@ void GreedyRobot::recursive_find_shortestPaths(array<int, 2> currentCoordinates,
 			recursive_find_shortestPaths(currentCoordinates, moves, forwardMoves, diretionSwitch, direction, pathString);
 		}
 	/*
-		AT BOUNDARY AND MOVING TOWARD PASSING IT, Y AXIS
+		AT BOUNDARY, Y AXIS
 	*/
 	// } else if ((currentCoordinates[1] == treasureY()) && ((direction == 'N')||(direction == 'S'))) { // If we have reached the limit of y movement
 	} else if ((moves[1] == _path_Y_length) && ((direction == 'N')||(direction == 'S'))) { // If we have reached the limit of y movement
@@ -324,7 +333,7 @@ void GreedyRobot::recursive_find_shortestPaths(array<int, 2> currentCoordinates,
 				DON'T SEND A ROBOT IN THE OTHER DIRECTION IF MOVES ARE MAXED OUT IN THAT DIRECTION
 			*/
 			if (moves[0] != _path_X_length) {
-				pathString.pop_back(); // When recursing in another diretion, we need to remove the direction the other robot went in
+				pathString.pop_back(); // When recursing in another diretion, we need to remove the direction the other robot just went in
 				currentCoordinates[1]--;
 				moves[1]--;
 				forwardMoves--;
