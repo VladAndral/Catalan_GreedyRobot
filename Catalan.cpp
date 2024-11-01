@@ -13,10 +13,10 @@ Catalan::Catalan() : _n(0), _catalanNumber(1) { }
 Catalan::Catalan(int n) : _n(0), _catalanNumber(1) {
     if (n < 0) {
         cout << "'n' must be a positive number (input was) " << n << endl;
-    } else if (n > 6) {
-        cout << "Unfortunatley, 'n' greater than 6 is too large to solve :( due to factorial issues" << endl;
+    } else if (n > 19) {
+        cout << "Unfortunatley, 'n' greater than 19 is too large to solve due to integer overflow :(" << endl;
     }
-    _catalanNumber = calculateCatalan(n);
+    _catalanNumber = _calculateCatalan(n);
     _n = n;
 }
 
@@ -35,11 +35,11 @@ int Catalan::get_catalanNumber() const {
 void Catalan::set_n(int n) {
     if (n < 0) {
         cout << "'n' must be a positive number (input was) " << n << endl;
-    } else if (n > 6) {
-        cout << "Unfortunatley, 'n' greater than 6 is too large to solve :( due to factorial issues" << endl;
+    } else if (n > 19) {
+        cout << "Unfortunatley, 'n' greater than 19 is too large to solve due to integer overflow :(" << endl;
     } else {
         _n = n;
-        _catalanNumber = calculateCatalan(n);
+        _catalanNumber = _calculateCatalan(n);
     }
 }
 
@@ -48,31 +48,31 @@ void Catalan::print() {
 
 }
 
+
 /*
         CALCULATIONS
 */
 
-int Catalan::calculateCatalan(int n) {
+int Catalan::_calculateCatalan(int n) {
+    return _recursive_calculateCatalan(n);
+}
+
+int Catalan::_recursive_calculateCatalan(int n) {
+    // n is n+1 in this case!
+    /* 
+        Base Case
+     */
     if (n == 0) {
         return 1;
-    }
-    int numerator = factorial(2*n);
-    int denominator = factorial(n+1)*factorial(n);
-    return numerator/denominator; // integer division
-}
-
-int Catalan::factorial(int n) {
-    return recursiveFactorial(n);
-}
-
-int Catalan::recursiveFactorial(int n) {
-    if (n == 1) {
-        return 1;
     } else {
-        return n*recursiveFactorial(n-1);
+        n -= 1;
+        int toReturn = 0;
+        for (int i = 0; i <= n; i++) {
+            toReturn += _recursive_calculateCatalan(i)*_recursive_calculateCatalan(n-i);
+        }
+        return toReturn;
     }
 }
-
 
 /*
         OPERATOR OVERLOADS

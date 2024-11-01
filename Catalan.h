@@ -29,9 +29,10 @@ class Catalan {
     private:
         int _n;
         int _catalanNumber;
-        int factorial(int n);
-        int recursiveFactorial(int n);
-        int calculateCatalan(int n);
+        // int _factorial(int n);
+        // int _recursiveFactorial(int n);
+        int _calculateCatalan(int n);
+        int _recursive_calculateCatalan(int n);
 
 
 
