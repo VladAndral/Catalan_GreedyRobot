@@ -6,7 +6,17 @@ using namespace std;
 /*
 	IDEA:
 	ONLY GO IN ONE DIRECTION, AND FOR EACH LIST ELEMENT, FLIP X-AXIS DIRECTION TO Y-AXIS DIRECTION
+
+	^ NEVERMIND, ONLY WORKS FOR SQUARES, AND FRANKLY IS MORE WORK THEN BASIC RECURSION
 */
+
+int main(int argc, char *argv[]) { // argv is a pointer to the first element in the array
+	for (int i = 0; i < 6; i++) {
+		cout << *(argv+i) << endl;
+	}
+	GreedyRobot toReturn(stoi(argv[1]), stoi(argv[2]), stoi(argv[3]), stoi(argv[4]), stoi(argv[5])); // argv[0] is name of program; we don't need to dereference bc stoi() handles it for us
+	toReturn.print_infoNoPaths();
+}
 
 GreedyRobot::GreedyRobot() :
     _max_movementDistance(0),
@@ -65,11 +75,11 @@ istream& operator>>(istream& stream, GreedyRobot& greedyRobot) {
 	int maximum_distance, startingX, startingY, treasureX, treasureY;
 	stream >> maximum_distance >> startingX >> startingY >> treasureX >> treasureY;
 	
-	greedyRobot.set_max_movementDistance(maximum_distance, true);
-	greedyRobot.set_startingX(startingX, true);
-	greedyRobot.set_startingY(startingY, true);
-	greedyRobot.set_treasureX(treasureX, true);
-	greedyRobot.set_treasureY(treasureY, true);
+	greedyRobot.set_max_movementDistance(maximum_distance, false);
+	greedyRobot.set_startingX(startingX, false);
+	greedyRobot.set_startingY(startingY, false);
+	greedyRobot.set_treasureX(treasureX, false);
+	greedyRobot.set_treasureY(treasureY, false);
 	greedyRobot.build();
 
 	return stream;
@@ -105,37 +115,37 @@ int GreedyRobot::treasureY() const {
     return _treasureCoordinates[1];
 }
 
-void GreedyRobot::set_max_movementDistance(int num, bool init) {
+void GreedyRobot::set_max_movementDistance(int num, bool findPaths) {
 	_max_movementDistance = num;
-	if (!init) {
+	if (findPaths) {
 		find_shortestPaths();
 	}
 }
 
-void GreedyRobot::set_startingX(int num, bool init) {
+void GreedyRobot::set_startingX(int num, bool findPaths) {
 	_startingCoordinates[0] = num;
-	if (!init) {
+	if (findPaths) {
 		find_shortestPaths();
 	}
 }
 
-void GreedyRobot::set_startingY(int num, bool init) {
+void GreedyRobot::set_startingY(int num, bool findPaths) {
 	_startingCoordinates[1] = num;
-	if (!init) {
+	if (findPaths) {
 		find_shortestPaths();
 	}
 }
 
-void GreedyRobot::set_treasureX(int num, bool init) {
+void GreedyRobot::set_treasureX(int num, bool findPaths) {
 	_treasureCoordinates[0] = num;
-	if (!init) {
+	if (findPaths) {
 		find_shortestPaths();
 	}
 }
 
-void GreedyRobot::set_treasureY(int num, bool init) {
+void GreedyRobot::set_treasureY(int num, bool findPaths) {
 	_treasureCoordinates[1] = num;
-	if (!init) {
+	if (findPaths) {
 		find_shortestPaths();
 	}
 }
