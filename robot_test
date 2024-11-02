@@ -1,0 +1,31 @@
+# echo "Test X: (shortest distance, number of paths)"
+# echo "TEST 1: (2,2)"
+# ./greedy_robot 1 3 4 4 3
+# echo "TEST 2: (Already there)"
+# ./greedy_robot 2 1 1 1 1
+# echo "TEST 3: (NP, 0)"
+# ./greedy_robot 1 1 1 5 1
+
+echo "Test X: (shortest distance, number of paths)\nDistance is length of path string ['ESE' -> 3]" > robot_tests_results.txt # '>' Overwrites file contents 
+echo "\nTEST 1: (2,2)" >> robot_tests_results.txt # '>>' Appends output to file
+./greedy_robot 1 3 4 4 3 >> robot_tests_results.txt
+echo "\nTEST 2: (Robot starts at treasure)" >> robot_tests_results.txt
+./greedy_robot 2 1 1 1 1 >> robot_tests_results.txt
+echo "\nTEST 3: (No paths exist for the coordinates and maximum foward movement., 0)" >> robot_tests_results.txt
+./greedy_robot 1 1 1 5 1 >> robot_tests_results.txt
+echo "\nTEST 4: (8,2)" >> robot_tests_results.txt
+./greedy_robot 1 1 1 -3 -3 >> robot_tests_results.txt
+echo "\nTEST 4: (2,1)" >> robot_tests_results.txt
+./greedy_robot 2 1 1 3 1 >> robot_tests_results.txt
+echo "\nTEST 4: (2,1)" >> robot_tests_results.txt
+./greedy_robot 2 1 1 3 1 >> robot_tests_results.txt
+echo "\nTEST 5: (16,2)" >> robot_tests_results.txt
+./greedy_robot 1 0 0 8 8 >> robot_tests_results.txt
+echo "\nTEST 6: (16,1)" >> robot_tests_results.txt
+./greedy_robot 1 0 0 9 8 >> robot_tests_results.txt
+echo "\nTEST 7: (No paths exist for the coordinates and maximum foward movement.,2)" >> robot_tests_results.txt
+./greedy_robot 1 0 0 10 8 >> robot_tests_results.txt
+echo "\nTEST 8: (4,2)" >> robot_tests_results.txt
+./greedy_robot 1 -5 -5 -7 -7 >> robot_tests_results.txt
+echo "\nTEST 9: (No paths exist for the coordinates and maximum foward movement.,2)" >> robot_tests_results.txt
+./greedy_robot 0 -5 -5 -7 -10 >> robot_tests_results.txt

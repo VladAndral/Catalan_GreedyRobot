@@ -1,0 +1,50 @@
+Test X: (shortest distance, number of paths)
+Distance is length of path string ['ESE' -> 3]
+
+TEST 1: (2,2)
+ES
+SE
+Number of paths: 2
+
+TEST 2: (Robot starts at treasure)
+Robot starts at treasure
+Number of paths: 0
+
+TEST 3: (No paths exist for the coordinates and maximum foward movement., 0)
+No paths exist for the coordinates and maximum foward movement.
+Number of paths: 0
+
+TEST 4: (8,2)
+WSWSWSWS
+SWSWSWSW
+Number of paths: 2
+
+TEST 4: (2,1)
+EE
+Number of paths: 1
+
+TEST 4: (2,1)
+EE
+Number of paths: 1
+
+TEST 5: (16,2)
+ENENENENENENENEN
+NENENENENENENENE
+Number of paths: 2
+
+TEST 6: (16,1)
+ENENENENENENENENE
+Number of paths: 1
+
+TEST 7: (No paths exist for the coordinates and maximum foward movement.,2)
+No paths exist for the coordinates and maximum foward movement.
+Number of paths: 0
+
+TEST 8: (4,2)
+WSWS
+SWSW
+Number of paths: 2
+
+TEST 9: (No paths exist for the coordinates and maximum foward movement.,2)
+No paths exist for the coordinates and maximum foward movement.
+Number of paths: 0

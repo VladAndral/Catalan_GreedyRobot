@@ -4,6 +4,11 @@
 
 using namespace std;
 
+int main(int argc, char *argv[]) {
+    Catalan toReturn(stoi(argv[1]));
+    cout << toReturn.get_catalanNumber();
+}
+
 /*
         CONSTRUCTOR
 */
@@ -44,8 +49,7 @@ void Catalan::set_n(int n) {
 }
 
 void Catalan::print() {
-    cout << "n: " << get_n_forThisCatalan() << "\nCatalan Number: " << get_catalanNumber() << endl;
-
+    cout << "catalan " << get_n_forThisCatalan() << "\n" << get_catalanNumber() << endl;
 }
 
 
