@@ -20,9 +20,10 @@ Catalan::Catalan(int n) : _n(0), _catalanNumber(1) {
         cout << "'n' must be a positive number (input was) " << n << endl;
     } else if (n > 19) {
         cout << "Unfortunatley, 'n' greater than 19 is too large to solve due to integer overflow :(" << endl;
+    } else {
+        _catalanNumber = _calculateCatalan(n);
+        _n = n;
     }
-    _catalanNumber = _calculateCatalan(n);
-    _n = n;
 }
 
 /*
