@@ -57,7 +57,14 @@ void GreedyRobot::build() {
 		_directionsToGoIn[1] = 'f';
 	}
 
-	find_shortestPaths();
+	if (_path_length > 26) {
+		_list_of_shortestPaths.push_back("Path is too large to calculate.");
+		_isShortestPathPossible = false;
+		_numberOfPaths = 0;
+		return;
+	} else {
+		find_shortestPaths();
+	}
 }
 
 ostream& operator<<(ostream& stream, const GreedyRobot& greedyRobot) {

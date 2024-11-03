@@ -27,5 +27,11 @@ echo "\nTEST 7: (No paths exist for the coordinates and maximum foward movement.
 ./greedy_robot 1 0 0 10 8 >> robot_tests_results.txt
 echo "\nTEST 8: (4,2)" >> robot_tests_results.txt
 ./greedy_robot 1 -5 -5 -7 -7 >> robot_tests_results.txt
-echo "\nTEST 9: (No paths exist for the coordinates and maximum foward movement.,2)" >> robot_tests_results.txt
+echo "\nTEST 9: (24,2)" >> robot_tests_results.txt
+./greedy_robot 1 -5 -5 7 7 >> robot_tests_results.txt
+echo "\nTEST 10: (No paths exist for the coordinates and maximum foward movement.,2)" >> robot_tests_results.txt
 ./greedy_robot 0 -5 -5 -7 -10 >> robot_tests_results.txt
+echo "\nTEST 11: (Path is too large to calculate.,0)" >> robot_tests_results.txt
+./greedy_robot 4 0 0 20 20 >> robot_tests_results.txt
+echo "\nTEST 12: (Path is too large to calculate.,0)" >> robot_tests_results.txt
+./greedy_robot 4 0 0 -20 20 >> robot_tests_results.txt

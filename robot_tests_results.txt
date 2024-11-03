@@ -19,37 +19,45 @@ WSWSWSWS
 SWSWSWSW
 Number of paths: 2
 
-TEST 5: (2,1)
+TEST 4: (2,1)
 EE
 Number of paths: 1
 
-TEST 6: (2,1)
+TEST 4: (2,1)
 EE
 Number of paths: 1
 
-TEST 7: (16,2)
+TEST 5: (16,2)
 ENENENENENENENEN
 NENENENENENENENE
 Number of paths: 2
 
-TEST 8: (16,1)
+TEST 6: (16,1)
 ENENENENENENENENE
 Number of paths: 1
 
-TEST 9: (No paths exist for the coordinates and maximum foward movement.,2)
+TEST 7: (No paths exist for the coordinates and maximum foward movement.,2)
 No paths exist for the coordinates and maximum foward movement.
 Number of paths: 0
 
-TEST 10: (4,2)
+TEST 8: (4,2)
 WSWS
 SWSW
 Number of paths: 2
 
-TEST 11: (24,2)
+TEST 9: (24,2)
 ENENENENENENENENENENENEN
 NENENENENENENENENENENENE
 Number of paths: 2
 
-TEST 12: (No paths exist for the coordinates and maximum foward movement.,2)
+TEST 10: (No paths exist for the coordinates and maximum foward movement.,2)
 No paths exist for the coordinates and maximum foward movement.
+Number of paths: 0
+
+TEST 11: (Path is too large to calculate.,0)
+Path is too large to calculate.
+Number of paths: 0
+
+TEST 12: (Path is too large to calculate.,0)
+Path is too large to calculate.
 Number of paths: 0
