@@ -23,10 +23,6 @@ TEST 4: (2,1)
 EE
 Number of paths: 1
 
-TEST 4: (2,1)
-EE
-Number of paths: 1
-
 TEST 5: (16,2)
 ENENENENENENENEN
 NENENENENENENENE
